@@ -1,385 +1,43 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cổng Xem Kết Quả Đánh Giá (Chỉ xem)</title>
-  <style>
-    :root{--bg:#f6f7fb;--card:#fff;--muted:#6b7280;--text:#111827;--line:#e5e7eb;--brand:#2563eb;--ok:#16a34a;--warn:#d97706;--bad:#b91c1c}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .wrap{max-width:1120px;margin:0 auto;padding:16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:40px;height:40px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700}
-    .badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:4px 8px;border-radius:999px;font-size:12px;background:#f9fafb;color:#111}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
-    .btn:hover{background:#f9fafb}
-
-    main{padding:24px 16px}
-    .grid{display:grid;gap:16px}
-    @media(min-width:768px){.grid.two{grid-template-columns:1fr 1fr}}
-
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-    .card-hd{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:#f9fafb;border-radius:16px 16px 0 0}
-    .card-tt{font-weight:600}
-    .card-ds{font-size:14px;color:var(--muted)}
-    .card-bd{padding:16px}
-
-    .info-row{display:flex;gap:12px;font-size:14px;margin:8px 0}
-    .info-l{width:180px;color:var(--muted)}
-    .info-v{font-weight:600}
-
-    table{width:100%;border-collapse:separate;border-spacing:0}
-    th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    th{font-size:14px;color:#374151;background:#f9fafb}
-    tbody tr:hover{background:#fafafa}
-
-    .status{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;border:1px solid}
-    .status.gray{background:#f3f4f6;border-color:#e5e7eb;color:#374151}
-    .status.green{background:#ecfdf5;border-color:#bbf7d0;color:#047857}
-    .status.amber{background:#fffbeb;border-color:#fde68a;color:#92400e}
-    .status.red{background:#fef2f2;border-color:#fecaca;color:#991b1b}
-
-    .note{font-size:12px;color:var(--muted)}
-    .pill{font-family:ui-monospace,Menlo,Consolas,monospace;padding:2px 6px;border:1px solid var(--line);border-radius:999px;background:#fff}
-
-    @media print{header,.no-print{display:none!important} main{padding:0} .card{box-shadow:none}}
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Kết quả Bài tập lớn – TE-C-PA-1518-2023LTWD-0011</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <header>
-    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-      <div class="brand">
-        <div class="logo">EV</div>
-        <div>
-          <div style="font-weight:600">Cổng Xem Kết Quả Đánh Giá</div>
-          <div style="font-size:12px;color:var(--muted)" id="course-sub">Bài tập lớn – Lập Trình Hướng Đối Tượng</div>
-        </div>
-      </div>
-      <div class="toolbar">
-        <span class="badge" id="badge-date">24/08/2025</span>
-        <button class="btn" onclick="window.print()">In / Xuất PDF</button>
+<body class="bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="#/"><i class="bi bi-speedometer2"></i> Dashboard Kết quả – TE-C-PA-1518-2023LTWD-0011</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item me-2"><a class="btn btn-sm btn-light text-primary" href="#/" title="Tổng quan"><i class="bi bi-grid"></i> Tổng quan</a></li>
+          <li class="nav-item"><a class="btn btn-sm btn-outline-light" href="#" id="btnPrint"><i class="bi bi-printer"></i> In / Xuất</a></li>
+        </ul>
       </div>
     </div>
+  </nav>
+  <header class="bg-hero text-white py-4">
+    <div class="container">
+      <h1 class="h3 mb-1">Kết quả Bài tập lớn</h1>
+      <p class="mb-0 opacity-75">Lớp TE-C-PA-1518-2023LTWD-0011 • Chủ nhật 14:00 - 16:00 • Nguyễn Anh Trọng</p>
+    </div>
   </header>
-
-  <main class="wrap">
-    <!-- Cảnh báo chênh lệch -->
-    <section class="card">
-      <div class="card-bd">
-        <div class="status amber" style="margin-bottom:8px">Lưu ý dữ liệu</div>
-        <div class="note">Có chênh lệch giữa <b>phiếu chấm chi tiết</b> và <b>bảng tổng hợp</b> ở Nhóm 3. Trang này ưu tiên hiển thị theo từng phiếu nhóm; phần Tổng quan hiển thị cả số liệu trong bảng tổng hợp để đối chiếu.</div>
-      </div>
-    </section>
-
-    <!-- OVERVIEW -->
-    <section id="view-overview" class="grid">
-      <div class="card">
-        <div class="card-hd">
-          <div>
-            <div class="card-tt">Thông tin lớp</div>
-            <div class="card-ds">Trang chỉ xem (không cho phép chỉnh sửa)</div>
-          </div>
-          <span class="status green">Đã chấm</span>
-        </div>
-        <div class="card-bd">
-          <div class="grid two">
-            <div class="info-row"><div class="info-l">Mã lớp</div><div class="info-v">TE-C-PA-1518-2023LTWD-0011</div></div>
-            <div class="info-row"><div class="info-l">Thời gian học</div><div class="info-v">Chủ nhật — 14:00–16:00</div></div>
-            <div class="info-row"><div class="info-l">Môn học</div><div class="info-v">Lập Trình Hướng Đối Tượng</div></div>
-            <div class="info-row"><div class="info-l">Tên giáo viên</div><div class="info-v">Nguyễn Anh Trọng</div></div>
-            <div class="info-row"><div class="info-l">Học phần đánh giá</div><div class="info-v">Bài tập lớn OOP</div></div>
-          </div>
-          <div class="note" style="margin-top:6px">Nguồn: Phiếu đánh giá nhóm 1–3 và bảng tổng hợp.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-hd">
-          <div>
-            <div class="card-tt">Tổng quan nhóm</div>
-            <div class="card-ds">Bấm vào <span class="pill">Mã nhóm</span> để xem chi tiết (readonly).</div>
-          </div>
-        </div>
-        <div class="card-bd">
-          <table>
-            <thead>
-              <tr>
-                <th>Mã nhóm</th>
-                <th>Bảng I (phiếu)</th>
-                <th>Bảng II (phiếu)</th>
-                <th>Cảm quan (phiếu/tổng hợp)</th>
-                <th>Điểm cuối (phiếu)</th>
-                <th>Điểm cuối (tổng hợp)</th>
-              </tr>
-            </thead>
-            <tbody id="groups-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- DETAIL -->
-    <section id="view-detail" class="grid" style="display:none">
-      <div class="no-print">
-        <button class="btn" onclick="Router.toOverview()">← Quay lại tổng quan</button>
-      </div>
-
-      <div class="card">
-        <div class="card-hd">
-          <div>
-            <div class="card-tt" id="detail-title">Chi tiết kết quả – Nhóm</div>
-            <div class="card-ds" id="detail-desc">Nguồn dữ liệu từ phiếu nhóm</div>
-          </div>
-          <span class="status gray">Xem</span>
-        </div>
-        <div class="card-bd">
-          <div class="grid two">
-            <div class="info-row"><div class="info-l">Mã lớp</div><div class="info-v">TE-C-PA-1518-2023LTWD-0011</div></div>
-            <div class="info-row"><div class="info-l">Mã bài nhóm</div><div class="info-v" id="dt-maBai">—</div></div>
-            <div class="info-row"><div class="info-l">Đề tài trình bày</div><div class="info-v" id="dt-deTai">—</div></div>
-            <div class="info-row"><div class="info-l">Thành viên</div><div class="info-v" id="dt-tv">—</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BẢNG I (readonly) -->
-      <div class="card">
-        <div class="card-hd"><div class="card-tt">BẢNG I – Đánh giá đề tài nghiên cứu</div><div class="card-ds">Tổng tối đa: 100 điểm</div></div>
-        <div class="card-bd">
-          <table>
-            <thead>
-              <tr><th style="width:48px">#</th><th>Tiêu chí</th><th style="width:90px">ĐTĐ</th><th style="width:90px">ĐĐG</th><th>Nhận xét</th></tr>
-            </thead>
-            <tbody id="tbody-I"></tbody>
-          </table>
-          <div style="text-align:right;margin-top:10px;color:var(--muted)">Tổng điểm Bảng I: <b id="totalI">0</b></div>
-        </div>
-      </div>
-
-      <!-- BẢNG II (readonly) -->
-      <div class="card">
-        <div class="card-hd"><div class="card-tt">BẢNG II – Đánh giá kiến thức học phần</div><div class="card-ds">Tổng tối đa: 100 điểm</div></div>
-        <div class="card-bd">
-          <table>
-            <thead>
-              <tr><th style="width:48px">#</th><th>Tiêu chí</th><th style="width:90px">ĐTĐ</th><th style="width:90px">ĐĐG</th><th>Nhận xét</th></tr>
-            </thead>
-            <tbody id="tbody-II"></tbody>
-          </table>
-          <div style="text-align:right;margin-top:10px;color:var(--muted)">Tổng điểm Bảng II: <b id="totalII">0</b></div>
-        </div>
-      </div>
-
-      <!-- Tổng hợp -->
-      <div class="card">
-        <div class="card-bd">
-          <div class="grid two">
-            <div>
-              <div style="color:var(--muted);font-size:14px">Tổng BẢNG I (thang 100)</div>
-              <div style="font-size:28px;font-weight:700" id="boxI">0</div>
-            </div>
-            <div>
-              <div style="color:var(--muted);font-size:14px">Tổng BẢNG II (thang 100)</div>
-              <div style="font-size:28px;font-weight:700" id="boxII">0</div>
-            </div>
-            <div>
-              <div style="color:var(--muted);font-size:14px">Cảm quan (thang 10)</div>
-              <div style="font-size:28px;font-weight:700" id="boxSent">—</div>
-            </div>
-            <div>
-              <div style="color:var(--muted);font-size:14px">Điểm cuối (thang 100)</div>
-              <div style="font-size:28px;font-weight:700" id="boxFinal">—</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    // ===== DỮ LIỆU TỪ CÁC PHIẾU + BẢNG TỔNG HỢP =====
-    // Trích lược từ các file: Nhóm1, Nhóm2, Nhóm3, Tổng hợp (có trích dẫn trong chat)
-    const DB = {
-      ngay: '24/08/2025',
-      classInfo: {
-        maLop: 'TE-C-PA-1518-2023LTWD-0011',
-        thoiGianHoc: 'Chủ nhật — 14:00–16:00',
-        monHoc: 'Lập Trình Hướng Đối Tượng',
-        giaoVien: 'Nguyễn Anh Trọng',
-        hocPhan: 'Bài tập lớn OOP'
-      },
-      summary: {
-        // bảng tổng hợp (để đối chiếu)
-        '001124082501': { I: 90, II: 92, camQuan: 9, final: 9.1 }, // file tổng hợp ghi 9.1/100 (khả năng lỗi đơn vị); phiếu tính 90.67
-        '001124082502': { I: 85, II: 68, camQuan: 7, final: 69.65 },
-        '001124082503': { I: 91, II: 79, camQuan: 9, final: 79.15 }
-      },
-      groups: {
-        '001124082501': {
-          maBai: 'OOP.002',
-          deTai: 'OOP.002',
-          thanhVien: ['Trần Nguyên Khang','Phan Tấn Phúc','Nguyễn Nguyên Phú'],
-          I: [ // từ phiếu nhóm 1
-            {id:1, ten:'Tên đề tài', max:5, diem:5, note:'Đề tài rõ ràng, ý nghĩa, sáng tạo'},
-            {id:2, ten:'Hiện trạng & vấn đề', max:10, diem:8, note:'Mô tả bối cảnh tốt, giả thuyết chưa sâu'},
-            {id:3, ten:'Giải pháp & phương pháp', max:15, diem:13, note:'Chọn Pygame, modular, JSON; thiếu phần đánh giá so sánh'},
-            {id:4, ten:'Thiết kế nghiên cứu', max:10, diem:10, note:'Thiết kế bản đồ, lớp nhân vật khá rõ ràng'},
-            {id:5, ten:'Thu thập & xử lý dữ liệu', max:15, diem:13, note:'Có JSON, pipeline rõ; chưa có xử lý dữ liệu thiếu'},
-            {id:6, ten:'Phân tích & kết quả', max:15, diem:13, note:'Kết quả chạy được, chưa có đo lường định lượng'},
-            {id:7, ten:'Minh chứng', max:15, diem:15, note:'Có code, báo cáo, file JSON đầy đủ'},
-            {id:8, ten:'Trình bày báo cáo', max:15, diem:13, note:'Báo cáo mạch lạc, cần hướng dẫn chạy chi tiết hơn'}
-          ],
-          II: [
-            {id:1, ten:'Xây dựng lớp & đối tượng', max:10, diem:10, note:'Có BaseCharacter, Player, Enemy đầy đủ'},
-            {id:2, ten:'Đóng gói', max:10, diem:10, note:'Chưa dùng private rõ ràng, chủ yếu public'},
-            {id:3, ten:'Kế thừa', max:10, diem:10, note:'Player/Enemy kế thừa BaseCharacter, chuẩn OOP'},
-            {id:4, ten:'Đa hình', max:10, diem:10, note:'Override method move, update, attack'},
-            {id:5, ten:'Trừu tượng', max:10, diem:7, note:'Chưa dùng abc.ABC để ép hợp đồng'},
-            {id:6, ten:'Ngoại lệ', max:10, diem:6, note:'Không có try/except cho JSON, I/O'},
-            {id:7, ten:'Tối ưu & SOLID', max:10, diem:10, note:'Có factory, registry, tách module rõ ràng'},
-            {id:8, ten:'Hiệu quả chương trình', max:10, diem:9, note:'Game chạy được, có thể mở rộng'},
-            {id:9, ten:'Kiểm thử', max:10, diem:10, note:'Chưa có unittest/pytest'},
-            {id:10, ten:'Tài liệu & hướng dẫn', max:10, diem:10, note:'Có README, báo cáo, hướng dẫn còn đơn giản'}
-          ],
-          camQuan: 9,
-          final: 90.67
-        },
-        '001124082502': {
-          maBai: 'OOP.001', deTai: 'OOP.001',
-          thanhVien: ['Phan Triết An','Dương Tuấn Tú','NaN'],
-          I: [ // từ phiếu nhóm 2
-            {id:1, ten:'Tên đề tài', max:5, diem:5, note:'Đề tài rõ ràng, phù hợp thực tế'},
-            {id:2, ten:'Hiện trạng & vấn đề', max:10, diem:8, note:'Phân tích rõ tín chỉ vs niên chế, thiếu số liệu thực tế'},
-            {id:3, ten:'Giải pháp & phương pháp', max:15, diem:13, note:'Dùng Python OOP, có cấu trúc lớp; chưa nêu kiểm thử'},
-            {id:4, ten:'Thiết kế nghiên cứu', max:10, diem:9, note:'Xác định lớp SinhVien, QuanLySinhVien rõ ràng'},
-            {id:5, ten:'Thu thập & xử lý dữ liệu', max:15, diem:12, note:'Có nhập/xuất cơ bản; chưa có DB'},
-            {id:6, ten:'Phân tích & kết quả', max:15, diem:12, note:'Hệ thống chạy được cơ bản; thiếu phân tích sâu'},
-            {id:7, ten:'Minh chứng', max:15, diem:13, note:'Có code, báo cáo, slide'},
-            {id:8, ten:'Trình bày báo cáo', max:15, diem:13, note:'Báo cáo và slide mạch lạc'}
-          ],
-          II: [ // từ phiếu nhóm 2
-            {id:1, ten:'Xây dựng lớp & đối tượng', max:10, diem:9, note:'Có SinhVien, MonHoc, QuanLySinhVien'},
-            {id:2, ten:'Đóng gói', max:10, diem:7, note:'Thuộc tính chủ yếu public'},
-            {id:3, ten:'Kế thừa', max:10, diem:8, note:'Có phân biệt tín chỉ vs niên chế'},
-            {id:4, ten:'Đa hình', max:10, diem:7, note:'Override cơ bản, chưa đa dạng'},
-            {id:5, ten:'Trừu tượng', max:10, diem:6, note:'Chưa dùng abc.ABC'},
-            {id:6, ten:'Ngoại lệ', max:10, diem:5, note:'Chưa xử lý nhập sai bằng try/except'},
-            {id:7, ten:'Tối ưu & SOLID', max:10, diem:7, note:'Cấu trúc rõ, có thể tách module thêm'},
-            {id:8, ten:'Hiệu quả chương trình', max:10, diem:8, note:'Đáp ứng yêu cầu quản lý SV'},
-            {id:9, ten:'Kiểm thử', max:10, diem:4, note:'Chưa có unittest/pytest'},
-            {id:10, ten:'Tài liệu & hướng dẫn', max:10, diem:7, note:'Có báo cáo, slide; hướng dẫn chạy cơ bản'}
-          ],
-          camQuan: 7,
-          final: 69.65
-        },
-        '001124082503': {
-          maBai: 'OOP.001', deTai: 'OOP.001',
-          thanhVien: ['Nguyễn Đinh Thiên Phú','Phù Minh Phúc','Nguyễn Tuấn Kiệt'],
-          I: [ // từ phiếu nhóm 3
-            {id:1, ten:'Tên đề tài', max:5, diem:5, note:'Tên đề tài rõ ràng, phù hợp nhu cầu quản lý SV'},
-            {id:2, ten:'Hiện trạng & vấn đề', max:10, diem:9, note:'Phân tích được bất cập quản lý thủ công, có ví dụ minh họa'},
-            {id:3, ten:'Giải pháp & phương pháp', max:15, diem:14, note:'Sử dụng Python + web framework, hướng đối tượng, có kiểm thử cơ bản'},
-            {id:4, ten:'Thiết kế nghiên cứu', max:10, diem:9, note:'Thiết kế lớp SinhVien, MonHoc, QuanLy… rõ ràng; có kiến trúc MVC'},
-            {id:5, ten:'Thu thập & xử lý dữ liệu', max:15, diem:13, note:'Có nhập xuất dữ liệu, chưa tích hợp DB nâng cao'},
-            {id:6, ten:'Phân tích & kết quả', max:15, diem:13, note:'Hệ thống chạy web, có form nhập, xét tốt nghiệp, quản lý môn học'},
-            {id:7, ten:'Minh chứng', max:15, diem:14, note:'Có code, slide, README, repo Git'},
-            {id:8, ten:'Trình bày báo cáo', max:15, diem:14, note:'Slide & báo cáo mạch lạc, có demo giao diện'}
-          ],
-          II: [ // từ phiếu nhóm 3
-            {id:1, ten:'Xây dựng lớp & đối tượng', max:10, diem:9, note:'Có các lớp SinhVien, MonHoc, QuanLy, rõ chức năng'},
-            {id:2, ten:'Đóng gói', max:10, diem:8, note:'Có thuộc tính private/protected, quản lý qua phương thức'},
-            {id:3, ten:'Kế thừa', max:10, diem:8, note:'Có lớp kế thừa cho tín chỉ/niên chế, kế thừa HTML base'},
-            {id:4, ten:'Đa hình', max:10, diem:8, note:'Override và template kế thừa, có áp dụng polymorphism'},
-            {id:5, ten:'Trừu tượng', max:10, diem:7, note:'Có trừu tượng ở mức design, chưa dùng abc.ABC'},
-            {id:6, ten:'Ngoại lệ', max:10, diem:8, note:'Có nhiều trang Error riêng biệt để xử lý ngoại lệ'},
-            {id:7, ten:'Tối ưu & SOLID', max:10, diem:8, note:'Cấu trúc module rõ, gần theo MVC, còn có thể tách logic nhiều hơn'},
-            {id:8, ten:'Hiệu quả chương trình', max:10, diem:9, note:'Web app chạy ổn, có nhiều chức năng'},
-            {id:9, ten:'Kiểm thử', max:10, diem:6, note:'Có DataTesting, nhưng chưa unittest tự động'},
-            {id:10, ten:'Tài liệu & hướng dẫn', max:10, diem:8, note:'—'}
-          ],
-          camQuan: 9,
-          final: 77.4
-        }
-      }
-    };
-    // ===== RENDER (CHỈ XEM) =====
-    const $ = (s)=>document.querySelector(s);
-    const $$ = (s)=>Array.from(document.querySelectorAll(s));
-
-    const Router = {
-      toOverview(){
-        $('#view-detail').style.display='none';
-        $('#view-overview').style.display='grid';
-      },
-      toDetail(id){
-        renderDetail(id);
-        $('#view-overview').style.display='none';
-        $('#view-detail').style.display='grid';
-      }
-    };
-    window.Router = Router;
-
-    function renderOverview(){
-      const tb = $('#groups-tbody'); tb.innerHTML = '';
-      const ids = Object.keys(DB.groups);
-      ids.forEach(id=>{
-        const g = DB.groups[id];
-        const sumI = g.I.reduce((s,it)=>s+it.diem,0) || (DB.summary[id]?.I ?? '—');
-        const sumII = g.II.reduce((s,it)=>s+it.diem,0) || (DB.summary[id]?.II ?? '—');
-        const sentPhiếu = g.camQuan ?? '—';
-        const sentTH = (DB.summary[id]?.camQuan ?? '—');
-        const finalP = g.final ?? '—';
-        const finalTH = DB.summary[id]?.final ?? '—';
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><button class="link" style="color:#2563eb;background:none;border:none;padding:0;cursor:pointer" data-id="${id}">${id}</button></td>
-          <td>${sumI}</td>
-          <td>${sumII}</td>
-          <td>${sentPhiếu}/${sentTH}</td>
-          <td>${finalP}</td>
-          <td>${finalTH}</td>`;
-        tb.appendChild(tr);
-      });
-      $$('button[data-id]').forEach(b=> b.addEventListener('click', e=> Router.toDetail(e.currentTarget.getAttribute('data-id'))));
-    }
-
-    function renderDetail(id){
-      const g = DB.groups[id];
-      $('#detail-title').textContent = `Chi tiết kết quả – Nhóm ${id}`;
-      $('#dt-maBai').textContent = g.maBai; $('#dt-deTai').textContent = g.deTai;
-      $('#dt-tv').textContent = g.thanhVien.join(', ');
-
-      const tI = $('#tbody-I'); tI.innerHTML='';
-      g.I.forEach((it,idx)=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}</td><td style="font-weight:600">${it.ten}</td><td>${it.max}</td><td>${it.diem}</td><td>${it.note||''}</td>`;
-        tI.appendChild(tr);
-      });
-      const sumI = g.I.reduce((s,it)=>s+it.diem,0); $('#totalI').textContent = sumI;
-
-      const tII = $('#tbody-II'); tII.innerHTML='';
-      g.II.forEach((it,idx)=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}</td><td style="font-weight:600">${it.ten}</td><td>${it.max}</td><td>${it.diem}</td><td>${it.note||''}</td>`;
-        tII.appendChild(tr);
-      });
-      const sumII = g.II.reduce((s,it)=>s+it.diem,0); $('#totalII').textContent = sumII;
-
-      $('#boxI').textContent = sumI; $('#boxII').textContent = sumII;
-      $('#boxSent').textContent = g.camQuan ?? '—';
-      $('#boxFinal').textContent = g.final ?? '—';
-      // progress bars
-      const pct = (v,max)=> Math.max(0, Math.min(100, Math.round((v/max)*100)));
-      $('#barI').style.width = pct(sumI,100)+'%';
-      $('#barII').style.width = pct(sumII,100)+'%';
-      $('#barSent').style.width = pct(g.camQuan??0,10)+'%';
-      $('#barFinal').style.width = pct(g.final??0,100)+'%';
-    }
-
-    // boot
-    renderOverview();
-  </script>
+  <main class="container my-4"><div id="app"></div></main>
+  <footer class="footer mt-auto py-4 bg-white border-top">
+    <div class="container small text-muted d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+      <div><strong>Giáo viên phụ trách:</strong> Nguyễn Anh Trọng – <a href="mailto:natrong@codersden.space" class="text-decoration-none">natrong@codersden.space</a> – <a href="tel:0901621640" class="text-decoration-none">0901621640</a></div>
+      <div>© <span id="year"></span> TE-C-PA-1518-2023LTWD-0011</div>
+    </div>
+  </footer>
+  <script>document.addEventListener('DOMContentLoaded',()=>{document.getElementById('year').textContent=new Date().getFullYear();});</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>window.__RAW = {"lop": "TE-C-PA-1518-2023LTWD-0011", "overallComments": ["Nhóm 1: Đề tài RPG khó, code OOP có tính kế thừa/đa hình rõ; còn thiếu kiểm thử & xử lý lỗi.", "Nhóm 2: Đề tài quản lý SV cơ bản, áp dụng OOP chuẩn; cần cải thiện đóng gói, kiểm thử và ngoại lệ.", "Nhóm 3: Hệ thống quản lý SV nâng cao hơn, có web app, repo Git; nổi bật ở tính hoàn chỉnh và trình bày."], "nhom": [{"ma": "001124082501", "thanhVien": [{"ten": "Trần Nguyên Khang"}, {"ten": "Phan Tấn Phúc"}, {"ten": "Nguyễn Nguyên Phú"}], "nhanXetTongQuan": ["Điểm cảm quan: 9/10 – Nhóm chọn đề tài khó, tự làm từ nền tảng, tinh thần học tốt; thiếu kiểm thử & xử lý lỗi."], "chiTiet": {"bangI": [{"label": "Tên đề tài", "max": 5, "nhan": 5, "nx": "Đề tài rõ ràng, ý nghĩa, sáng tạo"}, {"label": "Hiện trạng & vấn đề", "max": 10, "nhan": 8, "nx": "Mô tả bối cảnh tốt, giả thuyết chưa sâu"}, {"label": "Giải pháp & phương pháp", "max": 15, "nhan": 13, "nx": "Chọn Pygame, modular, JSON; thiếu phần đánh giá so sánh"}, {"label": "Thiết kế nghiên cứu", "max": 10, "nhan": 10, "nx": "Thiết kế bản đồ, lớp nhân vật rõ ràng"}, {"label": "Thu thập & xử lý dữ liệu", "max": 15, "nhan": 13, "nx": "Có JSON, pipeline rõ; chưa xử lý dữ liệu thiếu"}, {"label": "Phân tích & kết quả", "max": 15, "nhan": 13, "nx": "Kết quả chạy được, chưa có đo lường định lượng"}, {"label": "Minh chứng", "max": 15, "nhan": 15, "nx": "Có code, báo cáo, file JSON đầy đủ"}, {"label": "Trình bày báo cáo", "max": 15, "nhan": 13, "nx": "Báo cáo mạch lạc, cần hướng dẫn chạy chi tiết"}], "bangII": [{"label": "Xây dựng lớp & đối tượng", "max": 10, "nhan": 10, "nx": "Có BaseCharacter, Player, Enemy đầy đủ"}, {"label": "Đóng gói", "max": 10, "nhan": 10, "nx": "Chưa dùng private rõ ràng, chủ yếu public"}, {"label": "Kế thừa", "max": 10, "nhan": 10, "nx": "Player/Enemy kế thừa BaseCharacter"}, {"label": "Đa hình", "max": 10, "nhan": 10, "nx": "Override move, update, attack"}, {"label": "Trừu tượng", "max": 10, "nhan": 7, "nx": "Chưa dùng abc.ABC để ép hợp đồng"}, {"label": "Ngoại lệ", "max": 10, "nhan": 6, "nx": "Không có try/except cho JSON, I/O"}, {"label": "Tối ưu & SOLID", "max": 10, "nhan": 10, "nx": "Có factory, registry, tách module"}, {"label": "Hiệu quả chương trình", "max": 10, "nhan": 9, "nx": "Game chạy được, có thể mở rộng"}, {"label": "Kiểm thử", "max": 10, "nhan": 10, "nx": "Chưa có unittest/pytest"}, {"label": "Tài liệu & hướng dẫn", "max": 10, "nhan": 10, "nx": "Có README, hướng dẫn"}], "camQuan": 9}, "bangI": 90.0, "bangII": 92.0, "camQuan": 9, "diemCuoi": 82.8}, {"ma": "001124082502", "thanhVien": [{"ten": "Phan Triết An"}, {"ten": "Dương Tuấn Tú"}], "nhanXetTongQuan": ["Điểm cảm quan: 7/10 – Phân tích rõ; cần cải thiện đóng gói, kiểm thử, ngoại lệ."], "chiTiet": {"bangI": [{"label": "Tên đề tài", "max": 5, "nhan": 5, "nx": "Đề tài rõ ràng, phù hợp thực tế"}, {"label": "Hiện trạng & vấn đề", "max": 10, "nhan": 8, "nx": "Phân tích rõ tín chỉ vs niên chế, thiếu số liệu thực tế"}, {"label": "Giải pháp & phương pháp", "max": 15, "nhan": 13, "nx": "Dùng Python OOP, có cấu trúc lớp; chưa nêu kiểm thử"}, {"label": "Thiết kế nghiên cứu", "max": 10, "nhan": 9, "nx": "Xác định lớp SinhVien, QuanLySinhVien rõ ràng"}, {"label": "Thu thập & xử lý dữ liệu", "max": 15, "nhan": 12, "nx": "Có nhập/xuất cơ bản; chưa có DB"}, {"label": "Phân tích & kết quả", "max": 15, "nhan": 12, "nx": "Hệ thống chạy cơ bản; thiếu phân tích sâu"}, {"label": "Minh chứng", "max": 15, "nhan": 13, "nx": "Có code, báo cáo, slide"}, {"label": "Trình bày báo cáo", "max": 15, "nhan": 13, "nx": "Báo cáo và slide mạch lạc"}], "bangII": [{"label": "Xây dựng lớp & đối tượng", "max": 10, "nhan": 9, "nx": "Có SinhVien, MonHoc, QuanLySinhVien"}, {"label": "Đóng gói", "max": 10, "nhan": 7, "nx": "Thuộc tính chủ yếu public"}, {"label": "Kế thừa", "max": 10, "nhan": 8, "nx": "Có phân biệt tín chỉ vs niên chế"}, {"label": "Đa hình", "max": 10, "nhan": 7, "nx": "Override cơ bản, chưa đa dạng"}, {"label": "Trừu tượng", "max": 10, "nhan": 6, "nx": "Chưa dùng abc.ABC"}, {"label": "Ngoại lệ", "max": 10, "nhan": 5, "nx": "Chưa xử lý nhập sai bằng try/except"}, {"label": "Tối ưu & SOLID", "max": 10, "nhan": 7, "nx": "Cấu trúc rõ, có thể tách module thêm"}, {"label": "Hiệu quả chương trình", "max": 10, "nhan": 8, "nx": "Đáp ứng yêu cầu quản lý SV"}, {"label": "Kiểm thử", "max": 10, "nhan": 4, "nx": "Chưa có unittest/pytest"}, {"label": "Tài liệu & hướng dẫn", "max": 10, "nhan": 7, "nx": "Có báo cáo, slide; hướng dẫn cơ bản"}], "camQuan": 7}, "bangI": 85.0, "bangII": 68.0, "camQuan": 7, "diemCuoi": 69.55}, {"ma": "001124082503", "thanhVien": [{"ten": "Nguyễn Đinh Thiên Phú"}, {"ten": "Phù Minh Phúc"}, {"ten": "Nguyễn Tuấn Kiệt"}], "nhanXetTongQuan": ["Điểm cảm quan: 9/10 – Hệ thống hoàn chỉnh; có web framework & repo Git; trình bày tốt."], "chiTiet": {"bangI": [{"label": "Tên đề tài", "max": 5, "nhan": 5, "nx": "Tên đề tài rõ ràng, phù hợp nhu cầu quản lý SV"}, {"label": "Hiện trạng & vấn đề", "max": 10, "nhan": 9, "nx": "Phân tích bất cập quản lý thủ công, có ví dụ"}, {"label": "Giải pháp & phương pháp", "max": 15, "nhan": 14, "nx": "Dùng Python + framework, OOP, có kiểm thử cơ bản"}, {"label": "Thiết kế nghiên cứu", "max": 10, "nhan": 9, "nx": "Thiết kế lớp rõ ràng; có kiến trúc MVC"}, {"label": "Thu thập & xử lý dữ liệu", "max": 15, "nhan": 13, "nx": "Có nhập xuất dữ liệu, chưa DB nâng cao"}, {"label": "Phân tích & kết quả", "max": 15, "nhan": 13, "nx": "Web chạy, có form nhập, xét tốt nghiệp"}, {"label": "Minh chứng", "max": 15, "nhan": 14, "nx": "Có code, slide, README, repo Git"}, {"label": "Trình bày báo cáo", "max": 15, "nhan": 14, "nx": "Slide & báo cáo mạch lạc, có demo"}], "bangII": [{"label": "Xây dựng lớp & đối tượng", "max": 10, "nhan": 9, "nx": "Lớp SinhVien, MonHoc, QuanLy rõ chức năng"}, {"label": "Đóng gói", "max": 10, "nhan": 8, "nx": "Có private/protected, quản lý qua phương thức"}, {"label": "Kế thừa", "max": 10, "nhan": 8, "nx": "Lớp kế thừa cho tín chỉ/niên chế, kế thừa HTML base"}, {"label": "Đa hình", "max": 10, "nhan": 8, "nx": "Override và template kế thừa, có polymorphism"}, {"label": "Trừu tượng", "max": 10, "nhan": 7, "nx": "Có trừu tượng ở mức design, chưa dùng abc.ABC"}, {"label": "Ngoại lệ", "max": 10, "nhan": 8, "nx": "Có nhiều trang Error xử lý ngoại lệ"}, {"label": "Tối ưu & SOLID", "max": 10, "nhan": 8, "nx": "Cấu trúc module rõ, gần theo MVC"}, {"label": "Hiệu quả chương trình", "max": 10, "nhan": 9, "nx": "Web app chạy ổn, nhiều chức năng"}, {"label": "Kiểm thử", "max": 10, "nhan": 6, "nx": "Có DataTesting, chưa unittest tự động"}, {"label": "Tài liệu & hướng dẫn", "max": 10, "nhan": 8, "nx": "README, slide, repo Git đầy đủ"}], "camQuan": 9}, "bangI": 91.0, "bangII": 79.0, "camQuan": 9, "diemCuoi": 77.4}], "avgFinal": 76.58, "avgBangI": 88.67, "avgBangII": 79.67, "leadGroup": "001124082501"};</script>
+  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
